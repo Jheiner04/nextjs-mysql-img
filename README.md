@@ -1,4 +1,4 @@
-### Nextjs MySQL CRUD
+### Nextjs MySQL Gestor de Imágenes
 
 Nextjs CRUD using MySQL and TailwindCSS
 

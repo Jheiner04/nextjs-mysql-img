@@ -24,7 +24,7 @@ export async function middleware(request) {
       jwt,
       new TextEncoder().encode("secret")
     );
-    console.log({ payload });
+    // console.log({ payload });
     return NextResponse.next();
   } catch (error) {
     return NextResponse.redirect(new URL("/login", request.url));
@@ -32,5 +32,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/panel/:path*"],
+  matcher: ["/panel/:path*", "/pdf/:path*", "/users/:path*"],
 };
