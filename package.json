@@ -1,5 +1,5 @@
 {
-  "name": "next-mysql-crud",
+  "name": "next-mysql-img",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,13 +8,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^3.0.0",
     "axios": "^0.26.0",
+    "bcrypt": "^5.1.0",
+    "cookie": "^0.5.0",
+    "cors": "^2.8.5",
+    "jose": "^4.14.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.3",
     "mysql2": "^2.3.3",
-    "next": "12.1.0",
+    "next": "^12.2.3",
+    "nookies": "^2.5.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hot-toast": "^2.2.0",
-    "serverless-mysql": "^1.5.4"
+    "serverless-mysql": "^1.5.4",
+    "sharp": "^0.32.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",

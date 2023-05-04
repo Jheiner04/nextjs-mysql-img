@@ -1,12 +1,12 @@
 import axios from "axios";
-import { ProductForm } from "components/ProductForm";
+import { PanelForm } from "components/PanelForm";
 import { Layout } from "components/Layout";
 
 function NewPage() {
   return (
     <Layout>
       <div className="h-5/6 grid place-items-center">
-        <ProductForm />
+        <PanelForm />
       </div>
     </Layout>
   );
