@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { Document, Page, View, Text, Image, PDFViewer, StyleSheet, Font } from "@react-pdf/renderer";
+import { Document, Page, View, Text, Image, PDFViewer, StyleSheet, Font, PDFDownloadLink } from "@react-pdf/renderer";
 import { useState, useEffect } from "react";
+import { useMediaQuery } from '@material-ui/core';
+
 
 Font.register({
     family: 'Oswald',
@@ -80,6 +82,15 @@ const styles = StyleSheet.create({
     headerContent: {
         flexDirection: "row",
         justifyContent: "space-between",
+    },
+    imagendos: {
+        position: 'relative',
+        width: '40%',
+        // height: '65%',
+        objectFit: 'fill',
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     }
 });
 
@@ -104,19 +115,40 @@ const PDF = ({ expedienteCredito }) => {
                     <Text style={styles.textHeader}>DNI: {expedienteCredito.expediente.dni}</Text>
                 </View>
                 <View wrap>
-                    {expedienteCredito.imagenes.map((imagen, index) => (
 
-                        <View key={index}>
-                            <Image
-                                style={styles.image}
-                                // src={'/optimaze/resize-' + imagen.url}
-                                src={'/uploads/' + imagen.url}
-                            />
-                            <Text style={styles.desciption}>Imagen N°{index + 1 + ': ' + imagen.descripcion}</Text>
-                        </View>
-                    ))}
+                    {/* {
+                        expedienteCredito.imagenes.map((imagen, index) => (
 
-                    {/* <Text>Goodbye, world!hgdkljfhsalhgfljadhsgflhasdlhfgsaljdhgflhasgflhgasdl;hfg;aksdjgf;kjsdahf;kjhasd;kjhf;kjashdf;kjhasd;kjfhjks;adhfkjhsadk;jfhaskjdhfkjsahdfkjhsadkj;hfkjsdhfkjhasd;kjhfkjsadhfkjhsda;kjh;</Text> */}
+                            <View key={index}>
+                                <Image
+                                    style={styles.image}
+                                    // src={'/optimaze/resize-' + imagen.url}
+                                    src={'/uploads/' + imagen.url}
+                                />
+                                <Text style={styles.desciption}>Imagen N°{index + 1 + ': ' + imagen.descripcion}</Text>
+                            </View>
+                        ))
+                    } */}
+                    {/* ToDo: verificar con trycatch porque no se visualiza el pdf */}
+
+                    {expedienteCredito.imagenes.map((imagen, index) => {
+                        try {
+                            return (
+                                // <View key={index} style={{ display: 'flex', height: '100%', width: '100%', position: 'relative' }}>
+                                <View key={index}>
+                                    <Image
+                                        style={styles.imagendos}
+                                        // src={'/optimaze/resize-' + imagen.url}
+                                        src={'/uploads/' + imagen.url}
+                                    />
+                                    <Text style={styles.desciption}>Imagen N°{index + 1 + ': \n' + imagen.descripcion}</Text>
+                                </View>
+                            );
+                        } catch (error) {
+                            console.log('Error al cargar la imagen:', error);
+                            return null;
+                        }
+                    })}
 
                 </View>
                 <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
@@ -132,11 +164,25 @@ const PDFView = ({ expedienteCredito }) => {
     useEffect(() => {
         setClient(true)
     }, [])
+    const isMobile = useMediaQuery('(max-width: 767px)');
 
     return (
-        <PDFViewer style={styles.viewer}>
-            <PDF expedienteCredito={expedienteCredito} />
-        </PDFViewer>
+        <>
+            {isMobile ?
+                <PDFDownloadLink
+                    document={<PDF expedienteCredito={expedienteCredito} />}
+                    fileName={'PanelFotográfico' + expedienteCredito.expediente.id_expediente_credito + '.pdf'}
+                    className="ml-2 rounded-md p-2 bg-red-500 text-white"
+                >
+                    {({ blob, url, loading, error }) =>
+                        loading ? 'Cargando documento...' : 'Descargar Panel Fotográfico'
+                    }
+                </PDFDownloadLink> :
+                <PDFViewer style={styles.viewer}>
+                    <PDF expedienteCredito={expedienteCredito} />
+                </PDFViewer>
+            }
+        </>
     )
 }
 export default PDFView

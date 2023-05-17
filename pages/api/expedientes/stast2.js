@@ -23,11 +23,31 @@ export const config = {
   },
 };
 
-const helperImg = async (file, fileName, size = 300) => {
+// const helperImg = async (file, fileName, size = 300) => {
+//   const filePath = path.join(file.destination, file.filename);
+//   const resizedImage = await sharp(filePath).resize(size).toBuffer();
+//   await fs.promises.writeFile(`./public/uploads/${fileName}`, resizedImage);
+// };
+// versión v3
+const helperImg = async (file, fileName, maxHeight = 300) => {
   const filePath = path.join(file.destination, file.filename);
-  const resizedImage = await sharp(filePath).resize(size).toBuffer();
-  await fs.promises.writeFile(`./public/uploads/${fileName}`, resizedImage);
+  const metadata = await sharp(filePath).metadata();
+
+  // Verificar si la imagen supera la altura máxima especificada
+  if (metadata.height > maxHeight) {
+    const aspectRatio = metadata.width / metadata.height;
+    const newWidth = Math.round(maxHeight * aspectRatio);
+
+    const resizedImage = await sharp(filePath).resize({ height: 1000 }).rotate().toBuffer();
+
+    await fs.promises.writeFile(`./public/uploads/${fileName}`, resizedImage);
+  } else {
+    // Si la imagen no supera la altura máxima, guardarla sin cambios
+    const resizedImage = await sharp(filePath).resize(maxHeight).rotate().toBuffer(); // Aplica la orientación original en la imagen redimensionada
+    await fs.promises.writeFile(`./public/uploads/${fileName}`, resizedImage);
+  }
 };
+
 
 export default function handler(req, res) {
   console.log("REQ:", req.cookies)

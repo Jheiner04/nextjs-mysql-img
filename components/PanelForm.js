@@ -144,7 +144,7 @@ export function PanelForm() {
                         <img class="rounded-md mx-auto md:mx-0 cursor-pointer" id="img[${uuid}]" name="img[${uuid}]" src='/img/uploadImage.jpg' alt="Image" width="100" />
                       </label>
                       <div class="w-full md:w-1/2.2">
-                        <textarea name="description[${uuid}]" id="description[${uuid}]" rows="3" placeholder="Descripción" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-600 dark:border-slate-900 dark:text-white" required></textarea>
+                        <textarea name="description[${uuid}]" id="description[${uuid}]" rows="3" placeholder="Descripción" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-600 dark:border-slate-900 dark:text-white" maxlength="500" required></textarea>
                       </div>
                       <input type="button" class="md:w-1/5 bg-red-500 hover:bg-red-700 py-2 px-3 rounded eliminar" value="Eliminar">
                     </div>
@@ -165,12 +165,22 @@ export function PanelForm() {
             setPathImage(reader.result)
             const imagen = document.getElementById('img' + subcadenas[1]);
             imagen.setAttribute('src', reader.result);
+            setDisabledBtnSubmit(false);
           }
         } else {
           console.log("Esto no es una imagen")
         }
       }
     });
+
+    const textAreas = document.querySelectorAll('textarea[name^="description"]');
+
+    textAreas.forEach((textArea) => {
+      textArea.addEventListener('click', (event) => {
+        setDisabledBtnSubmit(false);
+      });
+    });
+
     return container;
   };
 
@@ -230,11 +240,10 @@ export function PanelForm() {
       const opcion = `
                     <div class="flex flex-col md:flex-row justify-start items-start gap-4 mb-4">
                       <label for="fileInput[${uuid}]" class="w-full md:w-auto">
-                        <input class="file-input hidden" id="fileInput[${uuid}]" name="${uuid}" type="file" accept="image/*" disabled/>
                         <img class="rounded-md mx-auto md:mx-0 cursor-pointer" id="${uuid}" name="img-${uuid}" src='/uploads/${imagen.url}' alt="Image" width="100" />
                       </label>
                       <div class="w-full md:w-1/2.2">
-                        <textarea name="description[${uuid}]" id="description[${uuid}]" rows="3" placeholder="Descripción" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-600 dark:border-slate-900 dark:text-white" required>${imagen.descripcion}</textarea>
+                        <textarea name="description[${uuid}]" id="description[${uuid}]" rows="3" placeholder="Descripción" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-600 dark:border-slate-900 dark:text-white" maxlength="500" required>${imagen.descripcion}</textarea>
                       </div>
                       <input type="button" class="md:w-1/5 bg-red-500 hover:bg-red-700 py-2 px-3 rounded eliminar" value="Eliminar">
                     </div>
@@ -242,27 +251,27 @@ export function PanelForm() {
       container.innerHTML = opcion;
       opciones.appendChild(container);
 
-      const fileInput = container.querySelector('.file-input');
-      fileInput.addEventListener('change', (e) => {
-        e.preventDefault();
-        let subcadenas = e.target.id.split("fileInput[")
-        if (e.target.files && e.target.files.length > 0) {
-          const file = e.target.files[0]
-          if (file.type.includes("image")) {
-            const reader = new FileReader()
-            reader.readAsDataURL(file)
+      // const fileInput = container.querySelector('.file-input');
+      // fileInput.addEventListener('change', (e) => {
+      //   e.preventDefault();
+      //   let subcadenas = e.target.id.split("fileInput[")
+      //   if (e.target.files && e.target.files.length > 0) {
+      //     const file = e.target.files[0]
+      //     if (file.type.includes("image")) {
+      //       const reader = new FileReader()
+      //       reader.readAsDataURL(file)
 
-            reader.onload = function load() {
-              setPathImage(reader.result)
-              const imagen = document.getElementById(subcadenas[1].slice(0, -1));
-              imagen.setAttribute('src', reader.result);
-            }
-            setDisabledBtnSubmit(false);
-          } else {
-            console.log("Esto no es una imagen")
-          }
-        }
-      });
+      //       reader.onload = function load() {
+      //         setPathImage(reader.result)
+      //         const imagen = document.getElementById(subcadenas[1].slice(0, -1));
+      //         imagen.setAttribute('src', reader.result);
+      //       }
+      //       setDisabledBtnSubmit(false);
+      //     } else {
+      //       console.log("Esto no es una imagen")
+      //     }
+      //   }
+      // });
 
       const textAreas = document.querySelectorAll('textarea[name^="description"]');
 
@@ -365,6 +374,7 @@ export function PanelForm() {
       }
 
       if (!router.query.id && imagenes.length === 0) { toast.error("Agregar al menos una imagen", { position: "top-right", }); return false; }
+      if (router.query.id && inputs.length > 0 && imagenes.length === 0) { toast.error("Agregar imagen para la nueva fila", { position: "top-right", }); return false; }
 
       const imgs = event.target.querySelectorAll('img[class="rounded-md mx-auto md:mx-0 cursor-pointer"]');
 
