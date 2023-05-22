@@ -4,7 +4,7 @@ import { UserRow } from "components/UserRow";
 
 function UsersPage({ users = [], validate }) {
   const renderUsers = () => {
-    if (users.length === 0) return <tr ><td className="p-3">Sin usuarios</td> </tr>;
+    if (users.length === 0) return <tr><td className="p-3">Sin usuarios</td></tr>;
     return users.map((user) => (
       <UserRow key={user.id_usuario} user={user} />
     ));

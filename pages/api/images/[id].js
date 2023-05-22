@@ -35,7 +35,6 @@ const deleteImage = async (req, res) => {
 
 const updateImage = async (req, res) => {
   try {
-    console.log(req.body)
     await pool.query("UPDATE imagen SET ? WHERE id = ?", [
       req.body,
       req.query.id,

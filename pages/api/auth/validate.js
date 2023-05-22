@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 
 export default function ValidateSession(req, res) {
-  // console.log("REQExp:", req.cookies)
   const { myTokenName } = req.cookies;
 
   if (!myTokenName) {

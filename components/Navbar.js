@@ -43,7 +43,7 @@ const Navbar = ({ validate }) => {
           <Image src="/img/pagina_01.png" className="h-8 w-8 rounded-md mr-3" alt="Descripción de la imagen" width={140} height={40} />
         </a>
         <div className="flex items-center">
-          <p className="font-bold text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 md:mr-4" role="none">
+          <p className="font-bold  rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 md:mr-4" role="none">
             {validate.username}
           </p>
           <button className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-700 md:hidden">
@@ -56,7 +56,7 @@ const Navbar = ({ validate }) => {
 
       </nav>
 
-      <aside className="overflow-y-auto fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 JRC sidebar bg-blue-800 text-blue-100 w-64 space-y-6 py-7 px-2  inset-y-0 left-0 transform  transition duration-200 ease-in-out">
+      <aside className="overflow-y-auto fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 JRC sidebar text-blue-100 w-64 space-y-6 py-7 px-2  inset-y-0 left-0 transform  transition duration-200 ease-in-out">
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
           <ul className="space-y-2 font-medium">
             {isAdmin && (

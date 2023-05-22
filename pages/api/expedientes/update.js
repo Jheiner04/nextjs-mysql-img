@@ -23,19 +23,6 @@ export const config = {
   },
 };
 
-// const helperImg = async (file, fileName, size = 300) => {
-//   const filePath = path.join(file.destination, file.filename);
-//   const resizedImage = await sharp(filePath).resize(size).toBuffer();
-//   await fs.promises.writeFile(`./public/uploads/${fileName}`, resizedImage);
-// };
-// versión v2
-// const helperImg = async (file, fileName, size = 300) => {
-//   const filePath = path.join(file.destination, file.filename);
-//   const metadata = await sharp(filePath).metadata(); // Obtiene la orientación original de la imagen
-//   const resizedImage = await sharp(filePath).resize(size).rotate().toBuffer(); // Aplica la orientación original en la imagen redimensionada
-//   await fs.promises.writeFile(`./public/uploads/${fileName}`, resizedImage);
-// };
-// versión v3
 const helperImg = async (file, fileName, maxHeight = 300) => {
   const filePath = path.join(file.destination, file.filename);
   const metadata = await sharp(filePath).metadata();
@@ -114,10 +101,9 @@ export default function handler(req, res) {
             descripcion: req.body.description[`${uuid}`],
             id_expediente_credito: id_expediente_credito
           });
-          //ToDo: primero verificar que el tamaño de la imagen sea menor o igual a 2 Megas, se guarda normal, de lo contrario, se comprime
-          if (file.size > 200000) {
-            // if (file.size > 2097152) {
-            // await helperImg(file.path, `${file.filename}`, 600)
+          if (resultImage.affectedRows === 0) return res.status(500).json({ error: "Error al guardar imagen." });
+
+          if (file.size > 2097152) {
             await helperImg(file, `resize-${file.fieldname}-name-${file.originalname}`, 600);
           }
         } catch (error) {

@@ -52,8 +52,6 @@ export function UserForm({ perfiles }) {
       setChangePassword(true);
       setEditForm(false);
     }
-
-    console.log("called UserForm");
   }, [router.query.id]);
 
   useEffect(() => { //Valores válidos para nombre

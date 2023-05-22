@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     desciption: {
         fontSize: 12,
         textAlign: 'center',
-        marginBottom: 40,
+        marginBottom: 5,
         color: 'grey',
     },
     subtitle: {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         objectFit: 'fill',
         display: 'block',
         marginLeft: 'auto',
-        marginRight: 'auto',
+        marginRight: 'auto'
     }
 });
 
@@ -115,22 +115,6 @@ const PDF = ({ expedienteCredito }) => {
                     <Text style={styles.textHeader}>DNI: {expedienteCredito.expediente.dni}</Text>
                 </View>
                 <View wrap>
-
-                    {/* {
-                        expedienteCredito.imagenes.map((imagen, index) => (
-
-                            <View key={index}>
-                                <Image
-                                    style={styles.image}
-                                    // src={'/optimaze/resize-' + imagen.url}
-                                    src={'/uploads/' + imagen.url}
-                                />
-                                <Text style={styles.desciption}>Imagen N°{index + 1 + ': ' + imagen.descripcion}</Text>
-                            </View>
-                        ))
-                    } */}
-                    {/* ToDo: verificar con trycatch porque no se visualiza el pdf */}
-
                     {expedienteCredito.imagenes.map((imagen, index) => {
                         try {
                             return (

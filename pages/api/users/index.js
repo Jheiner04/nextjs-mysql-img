@@ -15,16 +15,12 @@ export default async function handler(req, res) {
 
 const getUsers = async (req, res) => {
   try {
-    // console.log("REQExp:", req.cookies)
     const { myTokenName } = req.cookies;
 
     if (!myTokenName) {
       return res.status(401).json({ error: "Not logged in" });
     }
-
     const token = jwt.verify(myTokenName, "secret");
-    // console.log("TOKEN USER:", token)
-
     const results = await pool.query("SELECT u.*, p.tipo_perfil FROM `usuario` u INNER JOIN perfil p on u.id_perfil = p.id_perfil");
 
     const users = {

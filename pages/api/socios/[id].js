@@ -35,7 +35,6 @@ const deleteProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    console.log(req.body)
     await pool.query("UPDATE product SET ? WHERE id = ?", [
       req.body,
       req.query.id,

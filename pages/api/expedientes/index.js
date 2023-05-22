@@ -19,7 +19,6 @@ export default async function handler(req, res) {
 
 const getExpedientes = async (req, res) => {
   try {
-    // console.log("REQExp:", req.cookies)
     const { myTokenName } = req.cookies;
 
     if (!myTokenName) {
@@ -38,15 +37,6 @@ const getExpedientes = async (req, res) => {
 const saveExpediente = async (req, res) => {
 
   try {
-    // const { fileInput } = req.body;
-    // console.log("BODY:", req.body)
-    // const { id_usuario, id_socio } = req.body;
-    // const result = await pool.query("INSERT INTO expediente_credito SET ?", {
-    //   id_usuario,
-    //   id_socio,
-    // });
-    // return res.status(200).json({ ...req.body, id: result.insertId });
-    // res.status(200).json({ message: "Formulario enviado correctamente." });
 
     // Middleware para verificar el tipo de contenido
     checkContentType(req, res, () => {
@@ -68,10 +58,6 @@ const saveExpediente = async (req, res) => {
           console.error(err);
           return res.status(500).json({ error: '5J0: ' + err });
         }
-
-        // Aquí puedes realizar las operaciones necesarias con la imagen
-        // Por ejemplo, guardar la imagen en una carpeta de tu servidor.
-        console.log(req.file); // Accede al archivo subido con req.file
 
         res.status(200).json({ message: "Formulario enviado correctamente." });
       });

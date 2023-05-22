@@ -21,7 +21,7 @@ export function PanelRow({ expediente, validate }) {
   const hora = fechaLocal.toLocaleTimeString('es-ES', { hour: 'numeric', minute: 'numeric', second: 'numeric' });
   const fechaFormateada = `${dia}/${mes}/${anio} ${hora}`;
   return (
-    <tr className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+    <tr className="border-b transition duration-300 ease-in-out dark:border-neutral-500 dark:hover:bg-neutral-600">
       <td className="whitespace-nowrap px-6 py-4 font-medium ">{expediente.dni}</td>
       <td className="whitespace-nowrap px-6 py-4">{expediente.nombre_completo}</td>
       <td className="whitespace-nowrap px-6 py-4">{fechaFormateada}</td>

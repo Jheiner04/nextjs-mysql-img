@@ -38,7 +38,6 @@ export const getServerSideProps = async ({ query }) => {
         expediente,
         imagenes
     }
-    // console.log(expedienteCredito)
     return {
         props: {
             expedienteCredito,

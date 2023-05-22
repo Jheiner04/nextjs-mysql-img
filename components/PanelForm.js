@@ -60,8 +60,6 @@ export function PanelForm() {
       setDisabledNombre(false);
       resetForm();
     }
-
-    console.log("called");
   }, [router.query.id]);
 
   useEffect(() => {
@@ -98,7 +96,6 @@ export function PanelForm() {
     } else {
       setDisabledBtnImagen(true)
     }
-    console.log("called Socio");
   }, [socio]);
 
   useEffect(() => {
@@ -251,28 +248,6 @@ export function PanelForm() {
       container.innerHTML = opcion;
       opciones.appendChild(container);
 
-      // const fileInput = container.querySelector('.file-input');
-      // fileInput.addEventListener('change', (e) => {
-      //   e.preventDefault();
-      //   let subcadenas = e.target.id.split("fileInput[")
-      //   if (e.target.files && e.target.files.length > 0) {
-      //     const file = e.target.files[0]
-      //     if (file.type.includes("image")) {
-      //       const reader = new FileReader()
-      //       reader.readAsDataURL(file)
-
-      //       reader.onload = function load() {
-      //         setPathImage(reader.result)
-      //         const imagen = document.getElementById(subcadenas[1].slice(0, -1));
-      //         imagen.setAttribute('src', reader.result);
-      //       }
-      //       setDisabledBtnSubmit(false);
-      //     } else {
-      //       console.log("Esto no es una imagen")
-      //     }
-      //   }
-      // });
-
       const textAreas = document.querySelectorAll('textarea[name^="description"]');
 
       textAreas.forEach((textArea) => {
@@ -280,10 +255,6 @@ export function PanelForm() {
           setDisabledBtnSubmit(false);
         });
       });
-
-
-
-
     })
 
   };
@@ -304,8 +275,6 @@ export function PanelForm() {
   const guardarExpediente = async (formData) => {
 
     try {
-      // const { data } = await axios.post("/api/expedientes", formData);
-      // console.log(formData.get('fileInput'))
 
       const { data } = await axios.post("/api/expedientes/stast2", formData, {
         headers: {
@@ -321,7 +290,6 @@ export function PanelForm() {
         position: "top-right",
       });
     }
-
   }
 
   const actualizarExpediente = async (formData) => {
@@ -394,7 +362,7 @@ export function PanelForm() {
             formData.append("id_expediente", router.query.id)
             formData.append('imagesLoaded', JSON.stringify(imagesObject));
             const expedienteActualizado = await actualizarExpediente(formData);
-            console.log(`Se ha actualizado el expediente con ID ${expedienteActualizado.id} y sus imágenes.`);
+            // console.log(`Se ha actualizado el expediente con ID ${expedienteActualizado.id} y sus imágenes.`);
           } catch (error) {
             console.log(`No se pudo guardar el expediente y sus imágenes: ${error}`);
           }
@@ -406,7 +374,7 @@ export function PanelForm() {
               const nuevoSocio = await guardarSocio(socio);
               setSocio({ id_socio: nuevoSocio.id, dni: nuevoSocio.dni, nombre_completo: nuevoSocio.nombre_completo });
               socio.id_socio = nuevoSocio.id;
-              console.log(`Se ha guardado el socio con ID ${nuevoSocio.id}.`);
+              // console.log(`Se ha guardado el socio con ID ${nuevoSocio.id}.`);
             } catch (error) {
               console.log(`No se pudo guardar el socio: ${error}`);
             }
@@ -416,7 +384,7 @@ export function PanelForm() {
             const formData = new FormData(event.target);
             formData.append("id_socio", socio.id_socio)
             const nuevoExpediente = await guardarExpediente(formData);
-            console.log(`Se ha guardado el expediente con ID ${nuevoExpediente.id} y sus imágenes.`);
+            // console.log(`Se ha guardado el expediente con ID ${nuevoExpediente.id} y sus imágenes.`);
           } catch (error) {
             console.log(`No se pudo guardar el expediente y sus imágenes: ${error}`);
           }

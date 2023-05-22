@@ -5,7 +5,7 @@ import { PanelRow } from "components/PanelRow";
 function ExpedientesPage({ expedientes = [], validate }) {
 
   const renderExpedientes = () => {
-    if (expedientes.length === 0) return <tr ><td className="p-3">Sin elementos</td> </tr>;
+    if (expedientes.length === 0) return <tr><td className="p-3">Sin elementos</td></tr>;
     return expedientes.map((expediente) => (
       <PanelRow key={expediente.id_expediente_credito} expediente={expediente} validate={validate} />
     ));

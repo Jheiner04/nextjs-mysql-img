@@ -5,7 +5,7 @@ export function Layout({ children, validate }) {
     <>
       <Navbar validate={validate} />
 
-      <div id="mainBody" className="bg-gray-100 dark:bg-slate-900 dark:text-white h-screen p-5 md:p-10">
+      <div id="mainBody" className=" dark:bg-slate-900 text-white h-screen p-5 md:p-10">
 
         <div className="p-4 sm:ml-64 mt-8">{children}</div>
       </div>

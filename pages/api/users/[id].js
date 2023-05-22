@@ -27,7 +27,6 @@ const getUser = async (req, res) => {
 
 const updateStateUser = async (req, res) => {
   try {
-    // console.log("USER DELETE:", req.body.estado)
     await pool.query("UPDATE usuario SET ? WHERE id_usuario = ?", [
       req.body,
       req.query.id,

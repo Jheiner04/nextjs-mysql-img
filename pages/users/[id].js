@@ -43,12 +43,9 @@ function ProductPage({ product }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
-  const { data: product} = await axios.get(
+  const { data: product } = await axios.get(
     "http://localhost:3000/api/products/" + query.id
   );
-
-  console.log(product)
-
   return {
     props: {
       product,
