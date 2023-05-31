@@ -43,8 +43,9 @@ function ProductPage({ product }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const { data: product } = await axios.get(
-    "http://localhost:3000/api/products/" + query.id
+    `${apiUrl}/api/products/` + query.id
   );
   return {
     props: {

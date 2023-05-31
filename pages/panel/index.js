@@ -39,8 +39,9 @@ function ExpedientesPage({ expedientes = [], validate }) {
 export default ExpedientesPage;
 
 export const getServerSideProps = async (context) => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const { data: expedientes } = await axios.get(
-    "http://localhost:3000/api/expedientes",
+    `${apiUrl}/api/expedientes`,
     {
       headers: {
         cookie: context.req.headers.cookie || "", // Incluye la cookie de sesión en la solicitud
@@ -50,7 +51,7 @@ export const getServerSideProps = async (context) => {
   );
 
   const { data: validate } = await axios.get(
-    "http://localhost:3000/api/auth/validate",
+    `${apiUrl}/api/auth/validate`,
     {
       headers: {
         cookie: context.req.headers.cookie || "", // Incluye la cookie de sesión en la solicitud

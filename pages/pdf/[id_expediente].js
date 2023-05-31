@@ -27,12 +27,13 @@ const View = ({ expedienteCredito, query }) => {
 }
 
 export const getServerSideProps = async ({ query }) => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const { data: expediente } = await axios.get(
-        "http://localhost:3000/api/expedientes/" + query.id_expediente
+        `${apiUrl}/api/expedientes/` + query.id_expediente
     );
 
     const { data: imagenes } = await axios.get(
-        "http://localhost:3000/api/images/expediente/" + query.id_expediente
+        `${apiUrl}/api/images/expediente/` + query.id_expediente
     );
     const expedienteCredito = {
         expediente,

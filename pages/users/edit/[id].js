@@ -10,8 +10,9 @@ export default function myComponent({ validate, perfiles }) {
 }
 
 export const getServerSideProps = async (context) => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const { data: perfiles } = await axios.get(
-    "http://localhost:3000/api/profiles",
+    `${apiUrl}/api/profiles`,
     {
       headers: {
         cookie: context.req.headers.cookie || "", // Incluye la cookie de sesión en la solicitud
