@@ -19,11 +19,20 @@ function Home() {
     let errors = {}
     e.preventDefault();
     try {
-      const res = await axios.post("/api/auth/login", credentials);
+      const apiUrlImg = process.env.NEXT_PUBLIC_API_URL_IMG;
+      // const res = await axios.post(`/api/auth/login`, credentials);
+      const res = await axios.post(`${apiUrlImg}/api/auth/login`, credentials);
+      // const res = axios({
+      //   method: "post",
+      //   url: `${apiUrlImg}/api/auth/login`,
+      //   withCredentials: false,
+      //   data: credentials
+      // })
       if (res.status === 200) {
         router.push("/panel");
       }
     } catch (error) {
+      console.log(error)
       if (error.response.status === 401 || error.response.status === 500) {
         errors.login = error.response.data.error
         setErrors(errors)

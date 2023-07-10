@@ -44,6 +44,7 @@ const helperImg = async (file, fileName, maxHeight = 300) => {
 
 
 export default function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   upload.any()(req, res, async (err) => {
     if (err) {
       console.error(err);

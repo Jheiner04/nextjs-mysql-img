@@ -275,8 +275,8 @@ export function PanelForm() {
   const guardarExpediente = async (formData) => {
 
     try {
-
-      const { data } = await axios.post("/api/expedientes/stast2", formData, {
+      const apiUrlImg = process.env.NEXT_PUBLIC_API_URL_IMG;
+      const { data } = await axios.post(`${apiUrlImg}/api/expedientes/stast2`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -390,7 +390,7 @@ export function PanelForm() {
           }
         }
 
-        router.push("/panel");
+        // router.push("/panel");
       } catch (error) {
         toast.error(error.response.data.message, {
           position: "top-right",

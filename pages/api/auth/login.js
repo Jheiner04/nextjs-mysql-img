@@ -1,9 +1,11 @@
 import { sign } from "jsonwebtoken";
 import { serialize } from "cookie";
 import { pool } from "config/db";
+import { setCorsHeaders } from 'config/cors';
 const bcrypt = require("bcrypt");
 
 export default async function loginHandler(req, res) {
+  setCorsHeaders(req, res);
   try {
     const { user, password } = req.body;
     // Buscar el usuario en la base de datos
